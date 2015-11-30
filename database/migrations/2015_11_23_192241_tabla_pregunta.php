@@ -16,6 +16,7 @@ class TablaPregunta extends Migration
            $table->increments('idPregunta');
             $table->string('Contenido');
             $table->integer('idTest');
+            $table->integer('idCategoria');
             $table->integer('Orden');
             $table->timestamps();
         });

@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script type="text/javascript">
 $(document).ready(function(){
+
 $( "#enviar" ).click(function() {
 	alert("boton funciona");
 $('#Test').submit(function() {
@@ -25,17 +26,21 @@ $('#Test').submit(function() {
 });
 });
 
-
-$( "#Categorias" ).change(function() {
+//desactivado por ahora
+$( "#s" ).change(function() {
 
 	var NumeroCategorias= $("#Categorias").val();
+
 	$( "#NombresCategorias" ).empty();
 	for (var i=1;i<=NumeroCategorias;i++){
-    var HtmlText="<input class='no-Preguntas'type='text'name='no-pregunta[]'>";
+
+    
+
 		var HtmlInputTextNombreC="<label>Nombre de Categoria"+i+"</label><input class='Nombres-Preguntas'type='text'name='Categoria[]'></br>";
-		
-    var HtmlInputTextNumeroP="<label>Numero de preguntas de la categoria"+i+""+HtmlForm+" </br>";
-   			$("#NombresCategorias").append(HtmlInputTextNombreC);
+		var HtmlText="<input class='no-Preguntas'type='text'name='NoPreguntaCategoria[]'>";
+    var HtmlInputTextNumeroP="<label>Numero de preguntas de la categoria"+i+""+HtmlText+" </br>";
+   	
+      	$("#NombresCategorias").append(HtmlInputTextNombreC);
    			$("#NombresCategorias").append(HtmlInputTextNumeroP);
 			}
   
@@ -46,7 +51,8 @@ $( "#Categorias" ).change(function() {
 			for (var i=1;i<=20;i++){
    			option += '<option value="'+ i + '">' + i + '</option>';
 			}
-			$('#Categorias').append(option);
+			//$('#Categorias').append(option);
+});
 });
 
 
@@ -85,7 +91,7 @@ $( "#Categorias" ).change(function() {
       |id: Inciso
        -->
           {!! Form::label('name','Numero de Incisos por pregunta')!!}
-          {!!Form::selectRange('IncisosEnPregunta', 0, 10,'default',array('class'=>'IncisosEnPregunta','id'=>'IncisosEnPregunta'))!!}
+          {!!Form::selectRange('IncisosEnPreguntas', 0, 10,'default',array('class'=>'IncisosEnPregunta','id'=>'IncisosEnPregunta'))!!}
           </br>
           <!--- 
             |input1: Estilos de Aprendizaje
@@ -99,7 +105,7 @@ $( "#Categorias" ).change(function() {
           {!!Form::radio('TipoTest', '1', true)!!} 
           {!! Form::label('name','Habitos de Estudio')!!}
           </br>
-          {!! Form::label('name','Numero de Categorias')!!}
+          {!! Form::label('name','no sirve, desactivado de momento')!!}
           {!!Form::selectRange('Categorias', 0, 10,'default',array('class'=>'Categorias','id'=>'Categorias'))!!}
           </br>
           <div id="NombresCategorias"class="hidden">

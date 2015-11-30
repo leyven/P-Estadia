@@ -16,7 +16,7 @@ class TestController extends Controller
     public function index()
     {
         $test = Test::all();
-
+        return view('Test.index')->with('test',$test);
         
     }
 
@@ -42,7 +42,15 @@ class TestController extends Controller
        $input = Input::except('Categoria','NoPreguntaCategoria');
        $NombreCategoria = Input::get('Categoria');
        $NumeroPreguntas = Input::get('NoPreguntaCategoria');
-       dd($NombreCategoria,$input,$NumeroPreguntas);
+        /*desactivado de momento
+        $contador=0;
+        foreach ($NumeroPreguntas as $valor) {
+        $contador=$valor+$contador;
+        }
+        $input['NumeroPreguntas']=$contador;
+       */
+       Test::create($input);
+       return redirect('test/nuevo');
     }
 
     /**
@@ -53,7 +61,7 @@ class TestController extends Controller
      */
     public function show($id)
     {
-        //
+        return $id;
     }
 
     /**

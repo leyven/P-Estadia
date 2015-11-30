@@ -19,3 +19,5 @@ Route::get('/', function () {
 
 Route::get('test/nuevo','TestController@create');
 Route::post('test/almacenar','TestController@store');
+Route::get('test/mostrar','TestController@index');
+Route::get('test/mostrar/{$id}','TestController@show');
