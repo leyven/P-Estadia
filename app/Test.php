@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Test extends Model
 {
+  protected $primaryKey = 'idTest';
 	protected $table = 'test';
     protected $fillable= [
-		   'Nombre',
+		       'Nombre',
            'Descripcion',
            'NumeroPreguntas',
            'IncisosEnPreguntas',

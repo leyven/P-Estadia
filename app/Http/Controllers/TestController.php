@@ -59,9 +59,11 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idTest)
     {
-        return $id;
+        $Test= Test::findOrFail($idTest);
+        
+         return view('Test.form-actualizarTest')->with('test',$Test);
     }
 
     /**
