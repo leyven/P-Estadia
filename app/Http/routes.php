@@ -16,8 +16,20 @@ Route::get('/', function () {
 });
 
 
-
+/*
+|--------------------------------------------------------------------------
+| rutas de accion para crear,modificar test
+|--------------------------------------------------------------------------
+|
+*/
 Route::get('test/nuevo','TestController@create');
 Route::post('test/almacenar','TestController@store');
 Route::get('test/mostrar','TestController@index');
 Route::get('test/mostrar/{id}','TestController@show');
+/*
+|--------------------------------------------------------------------------
+| rutas de accion para crear,modificar Categorias
+|--------------------------------------------------------------------------
+|
+*/
+Route::post('categorias/almacenar','CategoriasController@store');

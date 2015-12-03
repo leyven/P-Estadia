@@ -1,13 +1,14 @@
 <?php
 
 namespace Estadia;
+use Estadia\Categorias;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Test extends Model
 {
-  protected $primaryKey = 'idTest';
-	protected $table = 'test';
+    protected $primaryKey = 'idTest';
+	  protected $table = 'test';
     protected $fillable= [
 		       'Nombre',
            'Descripcion',
@@ -19,6 +20,12 @@ class Test extends Model
 
     public function Categorias()
     {
-    	return $this->hasMany('Estadia\Categorias');
+     // por alguna razon esto no funciona
+    	return $this->hasMany('Categorias');
+    }
+    public function ListarCategorias()
+    {
+     // return "hgoa";
+      return $this->hasMany('Estadia\Categorias','idTest');
     }
 }

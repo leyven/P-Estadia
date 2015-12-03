@@ -1,8 +1,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script type="text/javascript">
 $(document).ready(function(){
-	$("#nuevaCategoria").click(function(){
-
+	$("#formnuevaCategoria").hide();
+  $("#nuevaCategoria").click(function(){
+    $("#formnuevaCategoria").show();
 	});
 	
    
@@ -10,15 +11,22 @@ $(document).ready(function(){
 	</script>
 
 Desde puede ver categorias y agregar nuevas al test
-    <p>{{ $test->Nombre }}</p>
-     <p>{{ $test->Descripcion }}</p>
+    <p>Nombre del test: {{ $test->Nombre }}</p>
+     <p>Descripcion: {{ $test->Descripcion }}</p>
+     <div id=Categorias>
+      @foreach ($categorias as $data)
+    
+  <a href="{{action('TestController@show',[$data->NombreCategoria])}}">{{$data->NombreCategoria}}</a>
+  
+@endforeach
+     </div>
      <button id="nuevaCategoria">nueva categoria</button>
      
      <div id="formnuevaCategoria">
 
      <div class="form-group">
 
-          {!!Form::open(array('action' => 'TestController@store')) !!}
+          {!!Form::open(array('action' => 'CategoriasController@store')) !!}
            <!--- 
          |  Label-Cont: Nombre:
          |nameText: NombreTest
@@ -26,7 +34,7 @@ Desde puede ver categorias y agregar nuevas al test
          |id: NombreTest
           -->
          {!! Form::label('name','Nombre:')!!}
-         {!! Form::text('Nombre',null,['class'=>'NombreTest','id'=>'NombreTest'])!!}   
+         {!! Form::text('NombreCategoria',null,['class'=>'NombreTest','id'=>'NombreTest'])!!}   
               </br>
             <!--- 
           |  Label-Cont: Descripcion:
@@ -34,36 +42,12 @@ Desde puede ver categorias y agregar nuevas al test
           |class: DescripcionTest
           |id: DescripcionTest
            -->
-          {!! Form::label('name','Descripcion:')!!}
-          {!! Form::text('Descripcion',null,['class'=>'DescripcionTest','id'=>'DescripcionTest'])!!}
+          {!! Form::label('name','orden de la categoria:')!!}
+           {!! Form::hidden('idTest',$test->idTest)!!}
+          {!! Form::text('Orden',null,['class'=>'Orden','id'=>'Orden'])!!}
           </br>
-        <!--- 
-      |  Label-Cont: Incisos por pregunta:
-      |nameText: Incisos
-      |class: Inciso
-      |id: Inciso
-       -->
-          {!! Form::label('name','Numero de Incisos por pregunta')!!}
-          {!!Form::selectRange('IncisosEnPreguntas', 0, 10,'default',array('class'=>'IncisosEnPregunta','id'=>'IncisosEnPregunta'))!!}
-          </br>
-          <!--- 
-            |input1: Estilos de Aprendizaje
-            |input2: Habitos de Estudio
-            |valor1: 0
-            |valor2: 1
-            
-             -->
-          {!!Form::radio('TipoTest', '0', true)!!} 
-          {!! Form::label('name','Estilos de Aprendizaje')!!}
-          {!!Form::radio('TipoTest', '1', true)!!} 
-          {!! Form::label('name','Habitos de Estudio')!!}
-          </br>
-          {!! Form::label('name','no sirve, desactivado de momento')!!}
-          {!!Form::selectRange('Categorias', 0, 10,'default',array('class'=>'Categorias','id'=>'Categorias'))!!}
-          </br>
-          <div id="NombresCategorias"class="hidden">
-
-          </div>  
+        
+        
           {!!Form::submit('Enviar')!!} 
          {!! Form::close() !!}
     </div>

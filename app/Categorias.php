@@ -1,11 +1,14 @@
 <?php
 
 namespace Estadia;
+use Estadia\Test;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Categorias extends Model
 {
+   protected $primaryKey = 'idCategoria';
+   protected $table = 'categoria';
    protected $fillable= [
 		   'NombreCategoria',
            'idTest',
@@ -17,6 +20,6 @@ class Categorias extends Model
     
     public function test()
     {
-    	return $this->belongsTo('Estadia\Test');
+    	return $this->belongsTo('Test');
     }
 }

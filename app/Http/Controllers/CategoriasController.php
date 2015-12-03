@@ -1,13 +1,13 @@
-<?php namespace Estadia\Http\Controllers;
+<?php
 
-use Estadia\Test;
+namespace Estadia\Http\Controllers;
 use Estadia\Categorias;
 use Illuminate\Http\Request;
 use Input;
 use Estadia\Http\Requests;
 use Estadia\Http\Controllers\Controller;
 
-class TestController extends Controller
+class CategoriasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $test = Test::all();
-        return view('Test.index')->with('test',$test);
-        
+        //
     }
 
     /**
@@ -28,7 +26,7 @@ class TestController extends Controller
      */
     public function create()
     {
-        return view('Test.form-nuevoTest');
+        //
     }
 
     /**
@@ -39,20 +37,14 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-       $input = Input::all();
-       $input = Input::except('Categoria','NoPreguntaCategoria');
-       $NombreCategoria = Input::get('Categoria');
-       $NumeroPreguntas = Input::get('NoPreguntaCategoria');
-        /*desactivado de momento
-        $contador=0;
-        foreach ($NumeroPreguntas as $valor) {
-        $contador=$valor+$contador;
-        }
-        $input['NumeroPreguntas']=$contador;
-       */
-       Test::create($input);
-       return redirect('test/nuevo');
-    }
+        $input = Input::all();
+        
+        Categorias::create($input);
+        
+      
+
+       return redirect('test/mostrar/'.$input['idTest'].'');
+    }   
 
     /**
      * Display the specified resource.
@@ -60,14 +52,9 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idTest)
+    public function show($id)
     {
-        $Test= Test::findOrFail($idTest);
-      
-         $Categorias=$Test->ListarCategorias;
-         
-        
-         return view('Test.form-actualizarTest')->with('test',$Test)->with('categorias',$Categorias);
+        //
     }
 
     /**
