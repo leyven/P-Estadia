@@ -16,7 +16,7 @@ Desde puede ver categorias y agregar nuevas al test
      <div id=Categorias>
       @foreach ($categorias as $data)
     
-  <a href="{{action('TestController@show',[$data->NombreCategoria])}}">{{$data->NombreCategoria}}</a>
+  <a href="{{action('CategoriasController@show',[$data->idCategoria])}}">{{$data->NombreCategoria}}</a>
   
 @endforeach
      </div>
@@ -36,12 +36,12 @@ Desde puede ver categorias y agregar nuevas al test
          {!! Form::label('name','Nombre:')!!}
          {!! Form::text('NombreCategoria',null,['class'=>'NombreTest','id'=>'NombreTest'])!!}   
               </br>
-            <!--- 
+         <!---
           |  Label-Cont: Descripcion:
           |nameText: Descripcion
           |class: DescripcionTest
           |id: DescripcionTest
-           -->
+          -->
           {!! Form::label('name','orden de la categoria:')!!}
            {!! Form::hidden('idTest',$test->idTest)!!}
           {!! Form::text('Orden',null,['class'=>'Orden','id'=>'Orden'])!!}
@@ -49,7 +49,7 @@ Desde puede ver categorias y agregar nuevas al test
         
         
           {!!Form::submit('Enviar')!!} 
-         {!! Form::close() !!}
+          {!! Form::close() !!}
     </div>
 	
      </div>

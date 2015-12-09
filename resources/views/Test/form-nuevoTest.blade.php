@@ -105,11 +105,13 @@ $( "#s" ).change(function() {
           {!!Form::radio('TipoTest', '1', true)!!} 
           {!! Form::label('name','Habitos de Estudio')!!}
           </br>
-          {!! Form::label('name','no sirve, desactivado de momento')!!}
+          <!--{!! Form::label('name','no sirve, desactivado de momento')!!}
           {!!Form::selectRange('Categorias', 0, 10,'default',array('class'=>'Categorias','id'=>'Categorias'))!!}
+          
           </br>
+          -->
           <div id="NombresCategorias"class="hidden">
-
+          
           </div>  
           {!!Form::submit('Enviar')!!} 
          {!! Form::close() !!}

@@ -54,7 +54,13 @@ class CategoriasController extends Controller
      */
     public function show($id)
     {
-        //
+        $Categoria= Categorias::findOrFail($id);
+        //recupera el test al que pertenece
+        $Test=$Categoria->test;
+         dd($Test);
+         
+        
+         return view('Categoria.actualizar-Categoria')->with('Categoria',$Categoria);   
     }
 
     /**

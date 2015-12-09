@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('inicio');
 });
 
 
@@ -33,3 +33,4 @@ Route::get('test/mostrar/{id}','TestController@show');
 |
 */
 Route::post('categorias/almacenar','CategoriasController@store');
+Route::get('categorias/nuevo/{id}','CategoriasController@show');

@@ -20,6 +20,6 @@ class Categorias extends Model
     
     public function test()
     {
-    	return $this->belongsTo('Test');
+    	return $this->belongsTo('Estadia\Test','idTest');
     }
 }
