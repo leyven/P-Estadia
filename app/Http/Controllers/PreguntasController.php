@@ -1,13 +1,14 @@
 <?php
 
 namespace Estadia\Http\Controllers;
-use Estadia\Categorias;
+
 use Illuminate\Http\Request;
+use Estadia\Pregunta;
 use Input;
 use Estadia\Http\Requests;
 use Estadia\Http\Controllers\Controller;
 
-class CategoriasController extends Controller
+class PreguntasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,14 +38,20 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
+
         $input = Input::all();
         
-        $Categoria=Categorias::create($input);
+        $pregunta=Pregunta::create($input);
         
+
+        $Test= $pregunta->ObtenerTest($input['idTest']);
+        //aca se crean los incisos
+      
+        $pregunta->crearIncisos($Test->IncisosEnPreguntas);
       
 
-       return redirect('categorias/nuevo/'.$Categoria->idCategoria.'');
-    }   
+       return redirect('preguntas/mostrar/'.$pregunta->idPregunta.'/'.$input['idTest']);
+    }
 
     /**
      * Display the specified resource.
@@ -52,16 +59,15 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,$idTest)
     {
-        $Categoria= Categorias::findOrFail($id);
-        //recupera el test al que pertenece
-        $Test=$Categoria->test;
-        $Preguntas=$Categoria->ObtenerPreguntas;
-        
-         
-        
-         return view('Categoria.actualizar-Categoria')->with('Categoria',$Categoria)->with('Test',$Test)->with('Preguntas',$Preguntas);   
+
+                $pregunta= Pregunta::findOrFail($id);
+               $Categoria=$pregunta->ObtenerCategoria;
+               $Test= $pregunta->ObtenerTest($idTest);
+               $Incisos=$pregunta->ObtenerIncisos;
+               
+        return view('Preguntas.CrearIncisos')->with('Pregunta',$pregunta)->with('Test',$Test)->with('Categoria',$Categoria)->with('Incisos',$Incisos);
     }
 
     /**
@@ -74,11 +80,11 @@ class CategoriasController extends Controller
     {
         $input = Input::all();
         
-        $EditarTest = Categorias::find($input['idCategoria']);
-        $EditarTest->NombreCategoria = $input['NombreCategoria'];
+        $EditarTest = Pregunta::find($input['idPregunta']);
+        $EditarTest->Contenido = $input['Contenido'];
         $EditarTest->Orden = $input['Orden'];
         $EditarTest->save();
-         return redirect('categorias/nuevo/'.$input['idCategoria']."");
+         return redirect('preguntas/mostrar/'.$input['idPregunta']."/".$input['idTest']);
     }
 
     /**
@@ -99,10 +105,10 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,$idtest)
+    public function destroy($id,$idCategoria)
     {
-        Categorias::destroy($id);
+          Pregunta::destroy($id);
+           return redirect('categorias/nuevo/'.$idCategoria.'');
 
-        return redirect('test/mostrar/'.$idtest.'');
     }
 }

@@ -16,10 +16,9 @@ class TablaTest extends Migration
             $table->increments('idTest');
             $table->string('Nombre');
             $table->string('Descripcion');
-            $table->integer('NumeroPreguntas');
             $table->integer('IncisosEnPreguntas');
             $table->integer('TipoTest');
-            $table->integer('Categorias');
+           
             $table->timestamps();
         });
     }

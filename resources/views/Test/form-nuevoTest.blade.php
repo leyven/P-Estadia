@@ -63,6 +63,11 @@ $( "#s" ).change(function() {
   </head>
 
   <body>
+      <!-- navegacion -->
+bara de navegacion
+<br>
+ <a href="/P-Estadia/public/">inicio</a>
+ <br><br>
     <div class="form-group">
 
           {!!Form::open(array('action' => 'TestController@store')) !!}
@@ -117,8 +122,7 @@ $( "#s" ).change(function() {
          {!! Form::close() !!}
     </div>
 
-  	<!-- PESTAÑAS DE OPCIONES -->
-
+  
 
 
   </body>

@@ -15,9 +15,10 @@ class TablaInciso extends Migration
         Schema::create('inciso', function (Blueprint $table) {
             $table->increments('idInciso');
             $table->string('Contenido');
-            $table->integer('idPregunta');
+            $table->integer('idPregunta')->unsigned();
             $table->integer('Orden');
             $table->timestamps();
+
         });
     }
 

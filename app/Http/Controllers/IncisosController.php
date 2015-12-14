@@ -1,13 +1,14 @@
 <?php
 
 namespace Estadia\Http\Controllers;
-use Estadia\Categorias;
+
 use Illuminate\Http\Request;
+use Estadia\Inciso;
 use Input;
 use Estadia\Http\Requests;
 use Estadia\Http\Controllers\Controller;
 
-class CategoriasController extends Controller
+class IncisosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,14 +38,8 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();
-        
-        $Categoria=Categorias::create($input);
-        
-      
-
-       return redirect('categorias/nuevo/'.$Categoria->idCategoria.'');
-    }   
+        //a
+    }
 
     /**
      * Display the specified resource.
@@ -54,14 +49,7 @@ class CategoriasController extends Controller
      */
     public function show($id)
     {
-        $Categoria= Categorias::findOrFail($id);
-        //recupera el test al que pertenece
-        $Test=$Categoria->test;
-        $Preguntas=$Categoria->ObtenerPreguntas;
-        
-         
-        
-         return view('Categoria.actualizar-Categoria')->with('Categoria',$Categoria)->with('Test',$Test)->with('Preguntas',$Preguntas);   
+        //
     }
 
     /**
@@ -70,15 +58,9 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        $input = Input::all();
-        
-        $EditarTest = Categorias::find($input['idCategoria']);
-        $EditarTest->NombreCategoria = $input['NombreCategoria'];
-        $EditarTest->Orden = $input['Orden'];
-        $EditarTest->save();
-         return redirect('categorias/nuevo/'.$input['idCategoria']."");
+        //
     }
 
     /**
@@ -88,9 +70,20 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+         $input = Input::all();
+       
+       
+       //pasar esto al modelo(futuro)
+        for ($i=0; $i <count($input['Contenido']) ; $i++) { 
+        $EditarInciso= Inciso::find($input['idInciso'][$i]);
+        $EditarInciso->Contenido = $input['Contenido'][$i];
+        $EditarInciso->Orden = $input['Orden'][$i];
+        $EditarInciso->save();
+        }
+        
+         return redirect('preguntas/mostrar/'.$input['idPregunta']."/".$input['idTest']);
     }
 
     /**
@@ -99,10 +92,8 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,$idtest)
+    public function destroy($id)
     {
-        Categorias::destroy($id);
-
-        return redirect('test/mostrar/'.$idtest.'');
+        //
     }
 }

@@ -13,12 +13,15 @@ class TablaPregunta extends Migration
     public function up()
     {
         Schema::create('pregunta', function (Blueprint $table) {
-           $table->increments('idPregunta');
+            $table->increments('idPregunta');
             $table->string('Contenido');
-            $table->integer('idTest');
-            $table->integer('idCategoria');
+           // $table->integer('idTest');
+            $table->integer('idCategoria')->unsigned();
             $table->integer('Orden');
             $table->timestamps();
+            
+         
+         
         });
     }
 

@@ -22,4 +22,10 @@ class Categorias extends Model
     {
     	return $this->belongsTo('Estadia\Test','idTest');
     }
+
+    public function ObtenerPreguntas()
+    {
+     // return "hgoa";
+      return $this->hasMany('Estadia\Pregunta','idCategoria');
+    }
 }

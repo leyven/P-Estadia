@@ -50,8 +50,8 @@ class TestController extends Controller
         }
         $input['NumeroPreguntas']=$contador;
        */
-       Test::create($input);
-       return redirect('test/nuevo');
+      $Test= Test::create($input);
+       return redirect('test/mostrar/'.$Test->idTest);
     }
 
     /**
@@ -76,9 +76,16 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $input = Input::all();
+        
+        $EditarTest = Test::find($input['idTest']);
+        $EditarTest->Nombre = $input['Nombre'];
+        $EditarTest->Descripcion = $input['Descripcion'];
+        $EditarTest->TipoTest = $input['TipoTest'];
+        $EditarTest->save();
+         return redirect('test/mostrar/'.$input['idTest']."");
     }
 
     /**
@@ -101,6 +108,7 @@ class TestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Test::destroy($id);
+        return redirect('test/mostrar');
     }
 }

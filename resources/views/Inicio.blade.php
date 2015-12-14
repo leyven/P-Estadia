@@ -1,4 +1,4 @@
 <p>Inicio</p>
-<a href="test/nuevo">mostrar test</a>
+<a href="test/nuevo">nuevo test</a>
 <br>
-<a href="test/mostrar">nuevo test</a>
+<a href="test/mostrar">mostrar test</a>

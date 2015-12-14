@@ -26,6 +26,8 @@ Route::get('test/nuevo','TestController@create');
 Route::post('test/almacenar','TestController@store');
 Route::get('test/mostrar','TestController@index');
 Route::get('test/mostrar/{id}','TestController@show');
+Route::get('test/borrar/{id}','TestController@destroy');
+Route::post('test/actualizar/','TestController@edit');
 /*
 |--------------------------------------------------------------------------
 | rutas de accion para crear,modificar Categorias
@@ -34,3 +36,22 @@ Route::get('test/mostrar/{id}','TestController@show');
 */
 Route::post('categorias/almacenar','CategoriasController@store');
 Route::get('categorias/nuevo/{id}','CategoriasController@show');
+Route::get('categorias/borrar/{id}/{idtest}','CategoriasController@destroy');
+Route::post('categorias/actualizar/','CategoriasController@edit');
+/*
+|--------------------------------------------------------------------------
+| rutas de accion para crear,modificar preguntas
+|--------------------------------------------------------------------------
+|
+*/
+Route::post('preguntas/almacenar','PreguntasController@store');
+Route::get('preguntas/mostrar/{id}/{idTest}','PreguntasController@show');
+Route::get('preguntas/borrar/{id}/{idCategoria}','PreguntasController@destroy');
+Route::post('preguntas/actualizar/','PreguntasController@edit');
+/*
+|--------------------------------------------------------------------------
+| rutas de accion para crear,modificar Incisos
+|--------------------------------------------------------------------------
+|
+*/
+Route::post('incisos/actualizar','IncisosController@update');
