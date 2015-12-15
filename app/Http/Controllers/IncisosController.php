@@ -82,8 +82,8 @@ class IncisosController extends Controller
         $EditarInciso->Orden = $input['Orden'][$i];
         $EditarInciso->save();
         }
-        
-         return redirect('preguntas/mostrar/'.$input['idPregunta']."/".$input['idTest']);
+       
+         return redirect('categorias/nuevo/'.$input['idCategoria']);
     }
 
     /**

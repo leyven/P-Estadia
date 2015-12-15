@@ -28,4 +28,7 @@ class Test extends Model
      // return "hgoa";
       return $this->hasMany('Estadia\Categorias','idTest');
     }
+    public function LlenarPreguntas($idTest){
+
+    }
 }

@@ -17,7 +17,19 @@ $("#editarCategoria").click(function(){
    $("#formnuevaPregunta").hide();
     $("#formEditarCategoria").toggle();
   });	
+$("#Seguir").click(function(){
+  
+   // 
+   $("#Opcion").val('1');
    
+  });
+  $("#irAPreguntas").click(function(){
+   
+   
+   $("#Opcion").val('2');
+    
+  });    
+
 });
 	</script>
  bara de navegacion
@@ -64,11 +76,13 @@ modificar categoria
           {!! Form::label('name','orden de la pregunta:')!!}
            {!! Form::hidden('idCategoria',$Categoria->idCategoria)!!}
             {!! Form::hidden('idTest',$Test->idTest)!!}
+              {!! Form::hidden('Opcion',null,['class'=>'Opcion','id'=>'Opcion'])!!}
           {!! Form::text('Orden',null,['class'=>'Orden','id'=>'Orden'])!!}
           </br>
         
         
-          {!!Form::submit('Enviar')!!} 
+          {!!Form::submit('guardar y editar pregunta',['class'=>'irAPreguntas','id'=>'irAPreguntas'])!!} 
+          {!!Form::submit('Guardar y seguir agregando',['class'=>'Seguir','id'=>'Seguir'])!!} 
           {!! Form::close() !!}
     </div>
 	
@@ -99,7 +113,8 @@ modificar categoria
           </br>
         
         
-          {!!Form::submit('editar')!!} 
+          {!!Form::submit('guardar')!!} 
+
           {!! Form::close() !!}
     </div>
   

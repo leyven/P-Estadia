@@ -42,15 +42,19 @@ class PreguntasController extends Controller
         $input = Input::all();
         
         $pregunta=Pregunta::create($input);
-        
-
+       
         $Test= $pregunta->ObtenerTest($input['idTest']);
         //aca se crean los incisos
       
         $pregunta->crearIncisos($Test->IncisosEnPreguntas);
-      
+       
+        if($input['Opcion']==1){
+            return redirect('categorias/nuevo/'.$input['idTest']);
+        }else{
+           return redirect('preguntas/mostrar/'.$pregunta->idPregunta.'/'.$input['idTest']);
+        }
 
-       return redirect('preguntas/mostrar/'.$pregunta->idPregunta.'/'.$input['idTest']);
+       
     }
 
     /**

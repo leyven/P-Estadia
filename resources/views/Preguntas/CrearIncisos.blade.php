@@ -135,6 +135,7 @@ $(".obtenderDatos").click(function(){
         
           {!!Form::submit('Enviar')!!} 
           {!! Form::close() !!}
+          <a href="/P-Estadia/public/categorias/nuevo/{{$Categoria->idCategoria}}">Cancelar</a>
     </div>
   
      </div>
