@@ -1,5 +1,6 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript">
+@extends('master-layout')
+@section('embded-script')
+<script type="text/javascript">
 
 function hideForms() {
     $("#formnuevaPregunta").hide();
@@ -11,12 +12,12 @@ hideForms();
   $("#nuevaPregunta").click(function(){
 $("#formEditarCategoria").hide(); 
     $("#formnuevaPregunta").toggle();
-	});
+  });
 
 $("#editarCategoria").click(function(){
    $("#formnuevaPregunta").hide();
     $("#formEditarCategoria").toggle();
-  });	
+  }); 
 $("#Seguir").click(function(){
   
    // 
@@ -31,18 +32,27 @@ $("#Seguir").click(function(){
   });    
 
 });
-	</script>
- bara de navegacion
+  </script>
+ 
+    
+@endsection
+@section('tittle','editar incisos')
+
+@section('barra-navegacion')
+bara de navegacion
 <br>
  <a href="/P-Estadia/public/">inicio</a>
  <a href="/P-Estadia/public/test/mostrar">Listado de Test</a>
   <a href="/P-Estadia/public/test/mostrar/{{$Test->idTest}}">Test {{$Test->Nombre}}</a>
+@endsection
+@section('contenido')
+
  Categorias de {{$Test->Nombre}}
 modificar categoria
 <p>Test: {{$Test->Nombre}}</p>
 <p>Preguntas en : {{ $Categoria->NombreCategoria }}
   <br>
-	 @foreach ($Preguntas as $data)
+   @foreach ($Preguntas as $data)
     
   <a href="{{action('PreguntasController@show',[$data->idPregunta,$Test->idTest])}}">{{$data->Contenido}}</a>
   <a href="{{action('PreguntasController@destroy',[$data->idPregunta,$Categoria->idCategoria])}}">borrar</a>
@@ -85,7 +95,7 @@ modificar categoria
           {!!Form::submit('Guardar y seguir agregando',['class'=>'Seguir','id'=>'Seguir'])!!} 
           {!! Form::close() !!}
     </div>
-	
+  
      </div>
 <div id="formEditarCategoria">
 
@@ -121,4 +131,5 @@ modificar categoria
      </div>
 
      <br><br>
-    
+@endsection
+	

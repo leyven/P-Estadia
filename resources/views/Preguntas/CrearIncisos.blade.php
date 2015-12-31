@@ -1,5 +1,6 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript">
+@extends('master-layout')
+@section('embded-script')
+<script type="text/javascript">
 
 function hideForms() {
     $("#formnuevaPregunta").hide();
@@ -11,12 +12,12 @@ hideForms();
   $("#nuevaPregunta").click(function(){
 $("#formEditarCategoria").hide(); 
     $("#formnuevaPregunta").toggle();
-	});
+  });
 
 $("#editarPregunta").click(function(){
    $("#formnuevaPregunta").hide();
     $("#formEditarPregunta").toggle();
-  });	
+  }); 
 
 ///reasignar valores
 $(".obtenderDatos").click(function(){
@@ -30,8 +31,15 @@ $(".obtenderDatos").click(function(){
   }); 
    
 });
-	</script>
-  bara de navegacion
+  </script>
+  
+
+ 
+@endsection
+@section('tittle','editar incisos')
+
+@section('barra-navegacion')
+bara de navegacion
 <br>
  <a href="/P-Estadia/public/">inicio</a>
  ->
@@ -42,6 +50,9 @@ $(".obtenderDatos").click(function(){
  <a href="/P-Estadia/public/categorias/nuevo/{{$Categoria->idCategoria}}">Categoria {{$Categoria->NombreCategoria}}</a>
  ->
  pregunta {{$Pregunta->Contenido}}
+@endsection
+@section('contenido')
+
 
 
 
@@ -140,5 +151,6 @@ $(".obtenderDatos").click(function(){
   
      </div>
      
+@endsection
 
- 
+	

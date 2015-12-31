@@ -1,30 +1,37 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript">
+@extends('master-layout')
+@section('tittle','Actualizar test')
+@section('embded-script')
+
+  <script type="text/javascript">
 $(document).ready(function(){
-	$("#formnuevaCategoria").hide();
+  $("#formnuevaCategoria").hide();
   $("#formeditarTest").hide();
   ///
   $("#nuevaCategoria").click(function(){
     $("#formnuevaCategoria").toggle();
-	});
-	
+  });
+  
   $("#editarTest").click(function(){
     $("#formeditarTest").toggle();
   });
    
 });
-	</script>
- bara de navegacion
-<br>
+  </script>
+@endsection
+  @section('barra-navegacion')
+    
+    bara de navegacion
+    <br>
  <a href="/P-Estadia/public/">inicio</a>
  <a href="/P-Estadia/public/test/mostrar">Listado de Test</a>
  Categorias de {{$test->Nombre}}
     <br>  
  </br>
-  
 
-
-Desde aca puede ver categorias y agregar nuevas al test
+@endsection
+ 
+  @section('contenido')
+  Desde aca puede ver categorias y agregar nuevas al test
     
      <p>Descripcion: {{ $test->Descripcion }}</p>
      <div id='Categorias'>
@@ -69,7 +76,7 @@ Desde aca puede ver categorias y agregar nuevas al test
           {!!Form::submit('Enviar')!!} 
           {!! Form::close() !!}
     </div>
-	
+  
      </div>
 <!--
 hidden div para editar
@@ -132,4 +139,8 @@ hidden div para editar
      </div>
 
      <br><br>
+  @endsection
+
+
+
     

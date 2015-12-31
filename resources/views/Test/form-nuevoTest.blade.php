@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+@extends('master-layout')
+@section('embded-script')
 
-  <head>
-
-  <title>Prestamos</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript">
+  <script type="text/javascript">
 $(document).ready(function(){
 
 $( "#enviar" ).click(function() {
-	alert("boton funciona");
+  alert("boton funciona");
 $('#Test').submit(function() {
     // get all the inputs into an array.
     var inputs = $('#Test :input');
@@ -29,45 +24,48 @@ $('#Test').submit(function() {
 //desactivado por ahora
 $( "#s" ).change(function() {
 
-	var NumeroCategorias= $("#Categorias").val();
+  var NumeroCategorias= $("#Categorias").val();
 
-	$( "#NombresCategorias" ).empty();
-	for (var i=1;i<=NumeroCategorias;i++){
+  $( "#NombresCategorias" ).empty();
+  for (var i=1;i<=NumeroCategorias;i++){
 
     
 
-		var HtmlInputTextNombreC="<label>Nombre de Categoria"+i+"</label><input class='Nombres-Preguntas'type='text'name='Categoria[]'></br>";
-		var HtmlText="<input class='no-Preguntas'type='text'name='NoPreguntaCategoria[]'>";
+    var HtmlInputTextNombreC="<label>Nombre de Categoria"+i+"</label><input class='Nombres-Preguntas'type='text'name='Categoria[]'></br>";
+    var HtmlText="<input class='no-Preguntas'type='text'name='NoPreguntaCategoria[]'>";
     var HtmlInputTextNumeroP="<label>Numero de preguntas de la categoria"+i+""+HtmlText+" </br>";
-   	
-      	$("#NombresCategorias").append(HtmlInputTextNombreC);
-   			$("#NombresCategorias").append(HtmlInputTextNumeroP);
-			}
+    
+        $("#NombresCategorias").append(HtmlInputTextNombreC);
+        $("#NombresCategorias").append(HtmlInputTextNumeroP);
+      }
   
 });
 
-	
+  
     var option = '';
-			for (var i=1;i<=20;i++){
-   			option += '<option value="'+ i + '">' + i + '</option>';
-			}
-			//$('#Categorias').append(option);
+      for (var i=1;i<=20;i++){
+        option += '<option value="'+ i + '">' + i + '</option>';
+      }
+      //$('#Categorias').append(option);
 });
 });
 
 
 
-	
+  
 
-	</script>
-  </head>
+  </script>
+@endsection
+@section('tittle','nuevo test')
 
-  <body>
-      <!-- navegacion -->
+@section('barra-navegacion')
+ <!-- navegacion -->
 bara de navegacion
 <br>
  <a href="/P-Estadia/public/">inicio</a>
  <br><br>
+@endsection
+@section('contenido')
     <div class="form-group">
 
           {!!Form::open(array('action' => 'TestController@store')) !!}
@@ -122,10 +120,12 @@ bara de navegacion
          {!! Form::close() !!}
     </div>
 
+@endsection
+
+
+
+     
+
   
 
 
-  </body>
-
-
-</html>
