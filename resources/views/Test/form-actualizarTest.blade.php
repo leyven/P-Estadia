@@ -3,16 +3,116 @@
 @section('embded-script')
 
   <script type="text/javascript">
+  /*
+    |--------------------------------------------------------------------------
+    | funciones
+    |--------------------------------------------------------------------------
+    |
+    */
+
+function validarN(){
+  return  $('#NuevaCategoria').jqxValidator('validate');          
+}
+function validarE(){
+  return  $('#EditarTest').jqxValidator('validate');          
+}
 $(document).ready(function(){
+      /*
+    |--------------------------------------------------------------------------
+    | Botones
+    |--------------------------------------------------------------------------
+    |
+    */
+    $('#Descripcion').jqxTextArea({
+    placeHolder: "Descripcion del test",
+    height: 50,
+    width: 200,
+    minLength: 1,
+    theme: 'energyblue'
+});
+            $("#SubmitN").jqxButton({
+                theme: 'energyblue',
+                width: 100,
+                height: 30,
+                disabled: false
+            });
+
+            $("#SubmitE").jqxButton({
+                theme: 'energyblue',
+                width: 100,
+                height: 30,
+                disabled: false
+            });
+
+            $("#nuevaCategoria").jqxButton({
+                theme: 'energyblue',
+                width: 120,
+                height: 30,
+                disabled: false
+            });
+            $("#editarTest").jqxButton({
+                theme: 'energyblue',
+                width: 120,
+                height: 30,
+                disabled: false
+            });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validacion con jqwidgets
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    $('#NuevaCategoria').jqxValidator({ 
+
+                onError: function () {
+                alert('No has llenado los campos correctamente');
+                },
+                rules: [
+                  { input: '#NombreCategoria', message: 'Campo requerido!', action: 'keyup', rule: 'required' },                                   
+                  { input: '#Orden', message: 'Campo requerido!', action: 'keyup', rule: 'required' }]
+                });
+
+
+            $('#NuevaCategoria').on('validationSuccess', function (event) {
+                alert('Has llenado los campos con exito')
+            });      
+    
+    ////Validacion Editar Test
+    $('#EditarTest').jqxValidator({ 
+                onError: function () {
+                alert('No has llenado los campos correctamente');
+                },
+                rules: [
+                  { input: '.Nombre', message: 'Campo requerido!', action: 'keyup', rule: 'required' },                                   
+                  { input: '.Descripcion', message: 'Campo requerido!', action: 'keyup', rule: 'required' }]
+                });
+
+            $('#EditarTest').on('validationSuccess', function (event) {
+                alert('Has llenado los campos con exito')
+            });      
+   
+
+    /*
+    |--------------------------------------------------------------------------
+    | Acciones del formulario
+    |--------------------------------------------------------------------------
+    |
+    */
+
   $("#formnuevaCategoria").hide();
   $("#formeditarTest").hide();
   ///
   $("#nuevaCategoria").click(function(){
     $("#formnuevaCategoria").toggle();
+      $("#formeditarTest").hide();
   });
   
   $("#editarTest").click(function(){
     $("#formeditarTest").toggle();
+  $("#formnuevaCategoria").hide();
+
   });
    
 });
@@ -44,14 +144,15 @@ $(document).ready(function(){
 @endforeach
 <br>
      </div>
+
      <button id="nuevaCategoria">nueva categoria</button>
-     <button id="editarTest">editar informacion del test</button>
+     <button id="editarTest">editar test</button>
      
      <div id="formnuevaCategoria">
 
      <div class="form-group">
 
-          {!!Form::open(array('action' => 'CategoriasController@store')) !!}
+          {!!Form::open(array('action' => 'CategoriasController@store','id'=>'NuevaCategoria','onsubmit'=>'return validarN()')) !!}
            <!--- 
          |  Label-Cont: Nombre:
          |nameText: NombreTest
@@ -59,7 +160,7 @@ $(document).ready(function(){
          |id: NombreTest
           -->
          {!! Form::label('name','Nombre:')!!}
-         {!! Form::text('NombreCategoria',null,['class'=>'NombreTest','id'=>'NombreTest'])!!}   
+         {!! Form::text('NombreCategoria',null,['class'=>'NombreTest','id'=>'NombreCategoria'])!!}   
               </br>
          <!---
           |  Label-Cont: Descripcion:
@@ -73,7 +174,7 @@ $(document).ready(function(){
           </br>
         
         
-          {!!Form::submit('Enviar')!!} 
+          {!!Form::submit('Enviar',['id'=>'SubmitN'])!!} 
           {!! Form::close() !!}
     </div>
   
@@ -85,7 +186,7 @@ hidden div para editar
 
      <div class="form-group">
 
-           {!!Form::open(array('action' => 'TestController@edit')) !!}
+           {!!Form::open(array('action' => 'TestController@edit','id'=>'EditarTest','onsubmit'=>'return validarE()')) !!}
            <!--- 
          |  Label-Cont: Nombre:
          |nameText: NombreTest
@@ -94,7 +195,7 @@ hidden div para editar
           -->
           {!! Form::hidden('idTest',$test->idTest)!!}
          {!! Form::label('name','Nombre:')!!}
-         {!! Form::text('Nombre',$test->Nombre,['class'=>'NombreTest','id'=>'NombreTest'])!!}   
+         {!! Form::text('Nombre',$test->Nombre,['class'=>'Nombre','id'=>'Nombre'])!!}   
               </br>
             <!--- 
           |  Label-Cont: Descripcion:
@@ -103,7 +204,7 @@ hidden div para editar
           |id: DescripcionTest
            -->
           {!! Form::label('name','Descripcion:')!!}
-          {!! Form::text('Descripcion',$test->Descripcion,['class'=>'DescripcionTest','id'=>'DescripcionTest'])!!}
+          {!! Form::textarea('Descripcion',$test->Descripcion,['class'=>'Descripcion','id'=>'Descripcion'])!!}
           </br>
         <!--- 
       |  Label-Cont: Incisos por pregunta:
@@ -132,7 +233,7 @@ hidden div para editar
           <div id="NombresCategorias"class="hidden">
           
           </div>  
-          {!!Form::submit('Enviar')!!} 
+          {!!Form::submit('Enviar',['id'=>'SubmitE'])!!} 
          {!! Form::close() !!}
     </div>
   

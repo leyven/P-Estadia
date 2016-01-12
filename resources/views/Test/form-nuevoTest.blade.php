@@ -1,66 +1,67 @@
 @extends('master-layout')
 @section('embded-script')
+<script type="text/javascript">
 
-  <script type="text/javascript">
-$(document).ready(function(){
+    /*
+    |--------------------------------------------------------------------------
+    | Funciones 
+    |--------------------------------------------------------------------------
+    |
+    */
+    function validar(){
+      return  $('#NuevoTest').jqxValidator('validate');          
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | botones
+    |--------------------------------------------------------------------------
+    |
+    */
+    $('.AgregarContenido').jqxTextArea({
+    placeHolder: "Descripcion del test",
+    height: 50,
+    width: 200,
+    minLength: 1,
+    theme: 'energyblue'
+});
+    /*
+    |--------------------------------------------------------------------------
+    | Validacion con jqwidgets
+    |--------------------------------------------------------------------------
+    |
+    */
 
-$( "#enviar" ).click(function() {
-  alert("boton funciona");
-$('#Test').submit(function() {
-    // get all the inputs into an array.
-    var inputs = $('#Test :input');
 
-    // not sure if you wanted this, but I thought I'd add it.
-    // get an associative array of just the values.
-    var values = {};
-    inputs.each(function() {
-        values[this.name] = $(this).val();
+    $(document).ready(function () {
+            $('#NuevoTest').jqxValidator({ 
+                onError: function () {
+                alert('No has llenado los campos correctamente');
+                },
+                rules: [
+                  { input: '#NombreTest', message: 'Campo requerido!', action: 'keyup', rule: 'required' },                                   
+                  { input: '#DescripcionTest', message: 'Campo requerido!', action: 'keyup', rule: 'required' },
+                  { input: '.TipoTest', message: 'Campo Requerido', action: 'keyup', rule: 'required' }]
+                });
+            $("#SubmitTest").jqxButton({
+                theme: 'energyblue',
+                width: 100,
+                height: 30,
+                disabled: false
+            });
+            $('#NuevoTest').on('validationSuccess', function (event) {
+                $('#SubmitTest').jqxButton({
+                  disabled: false
+                });
+                alert('Has llenado los campos con exito')
+            });      
     });
-    alert(values);
-
-});
-});
-
-//desactivado por ahora
-$( "#s" ).change(function() {
-
-  var NumeroCategorias= $("#Categorias").val();
-
-  $( "#NombresCategorias" ).empty();
-  for (var i=1;i<=NumeroCategorias;i++){
-
-    
-
-    var HtmlInputTextNombreC="<label>Nombre de Categoria"+i+"</label><input class='Nombres-Preguntas'type='text'name='Categoria[]'></br>";
-    var HtmlText="<input class='no-Preguntas'type='text'name='NoPreguntaCategoria[]'>";
-    var HtmlInputTextNumeroP="<label>Numero de preguntas de la categoria"+i+""+HtmlText+" </br>";
-    
-        $("#NombresCategorias").append(HtmlInputTextNombreC);
-        $("#NombresCategorias").append(HtmlInputTextNumeroP);
-      }
-  
-});
-
-  
-    var option = '';
-      for (var i=1;i<=20;i++){
-        option += '<option value="'+ i + '">' + i + '</option>';
-      }
-      //$('#Categorias').append(option);
-});
-});
-
-
-
-  
-
-  </script>
+</script>
 @endsection
 @section('tittle','nuevo test')
 
 @section('barra-navegacion')
  <!-- navegacion -->
-bara de navegacion
+barra de navegacion
 <br>
  <a href="/P-Estadia/public/">inicio</a>
  <br><br>
@@ -68,7 +69,7 @@ bara de navegacion
 @section('contenido')
     <div class="form-group">
 
-          {!!Form::open(array('action' => 'TestController@store')) !!}
+          {!!Form::open(array('action' => 'TestController@store','id' => 'NuevoTest','onsubmit'=>'return validar()')) !!}
            <!--- 
          |  Label-Cont: Nombre:
          |nameText: NombreTest
@@ -94,7 +95,7 @@ bara de navegacion
       |id: Inciso
        -->
           {!! Form::label('name','Numero de Incisos por pregunta')!!}
-          {!!Form::selectRange('IncisosEnPreguntas', 0, 10,'default',array('class'=>'IncisosEnPregunta','id'=>'IncisosEnPregunta'))!!}
+          {!!Form::selectRange('IncisosEnPreguntas', 1, 10,'default',array('class'=>'IncisosEnPregunta','id'=>'IncisosEnPregunta'))!!}
           </br>
           <!--- 
             |input1: Estilos de Aprendizaje
@@ -103,9 +104,9 @@ bara de navegacion
             |valor2: 1
             
              -->
-          {!!Form::radio('TipoTest', '0', true)!!} 
+          {!!Form::radio('TipoTest', '0', true,['class' => 'TipoTest'])!!} 
           {!! Form::label('name','Estilos de Aprendizaje')!!}
-          {!!Form::radio('TipoTest', '1', true)!!} 
+          {!!Form::radio('TipoTest', '1', true,['class' => 'TipoTest'])!!} 
           {!! Form::label('name','Habitos de Estudio')!!}
           </br>
           <!--{!! Form::label('name','no sirve, desactivado de momento')!!}
@@ -116,7 +117,7 @@ bara de navegacion
           <div id="NombresCategorias"class="hidden">
           
           </div>  
-          {!!Form::submit('Enviar')!!} 
+          {!!Form::submit('Enviar',['id'=>'SubmitTest'])!!} 
          {!! Form::close() !!}
     </div>
 

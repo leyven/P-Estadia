@@ -2,12 +2,106 @@
 @section('embded-script')
 <script type="text/javascript">
 
-function hideForms() {
-    $("#formnuevaPregunta").hide();
-  $("#formEditarCategoria").hide();              // The function returns the product of p1 and p2
-}
+  /*
+    |--------------------------------------------------------------------------
+    | funciones
+    |--------------------------------------------------------------------------
+    |
+    */
 
+function validarN(){
+  return  $('#NuevaPregunta').jqxValidator('validate');          
+}
+function validarE(){
+  return  $('#EditarCategoria').jqxValidator('validate');          
+}
+function hideForms() {
+  $("#formnuevaPregunta").hide();
+  $("#formEditarCategoria").hide();              
+}
 $(document).ready(function(){
+    /*
+    |--------------------------------------------------------------------------
+    | Botones
+    |--------------------------------------------------------------------------
+    |
+    */
+    $('#Contenido').jqxTextArea({
+    placeHolder: "Pregunta",
+    height: 50,
+    width: 200,
+    minLength: 1,
+    theme: 'energyblue'
+});
+ $("#nuevaPregunta").jqxButton({
+                theme: 'energyblue',
+                width: 100,
+                height: 40,
+                disabled: false
+            });
+  $("#editarCategoria").jqxButton({
+                theme: 'energyblue',
+                width: 100,
+                height: 40,
+                disabled: false
+            });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validacion con jqwidgets
+    |--------------------------------------------------------------------------
+    |
+    */
+    $('#NuevaPregunta').jqxValidator({ 
+
+                onError: function () {
+                alert('No has llenado los campos correctamente');
+                },
+                rules: [
+                  { input: '#Contenido', message: 'Campo requerido!', action: 'keyup', rule: 'required' },                                   
+                  { input: '#Orden', message: 'Campo requerido!', action: 'keyup', rule: 'required' }]
+                });
+
+            $("#irAPreguntas").jqxButton({
+                theme: 'energyblue',
+                width: 200,
+                height: 30,
+                disabled: false
+            });
+            $("#Seguir").jqxButton({
+                theme: 'energyblue',
+                width: 200,
+                height: 30,
+                disabled: false
+            });
+            $('#NuevaCategoria').on('validationSuccess', function (event) {
+                alert('Has llenado los campos con exito')
+            });      
+    
+    ////Validacion Editar Test
+    $('#EditarCategoria').jqxValidator({ 
+                onError: function () {
+                alert('No has llenado los campos correctamente');
+                },
+                rules: [
+                  { input: '#NombreCategoria', message: 'Campo requerido!', action: 'keyup', rule: 'required' },                                   
+                  { input: '#Orden', message: 'Campo requerido!', action: 'keyup', rule: 'required' }]
+                });
+            $("#Guardar").jqxButton({
+                theme: 'energyblue',
+                width: 100,
+                height: 30,
+                disabled: false
+            });
+            $('#EditarCategoria').on('validationSuccess', function (event) {
+                alert('Has llenado los campos con exito')
+            });     
+    /*
+    |--------------------------------------------------------------------------
+    | Acciones del formulario
+    |--------------------------------------------------------------------------
+    |
+    */
 hideForms();
   $("#nuevaPregunta").click(function(){
 $("#formEditarCategoria").hide(); 
@@ -19,15 +113,10 @@ $("#editarCategoria").click(function(){
     $("#formEditarCategoria").toggle();
   }); 
 $("#Seguir").click(function(){
-  
-   // 
    $("#Opcion").val('1');
-   
-  });
+});
   $("#irAPreguntas").click(function(){
-   
-   
-   $("#Opcion").val('2');
+  $("#Opcion").val('2');
     
   });    
 
@@ -67,7 +156,7 @@ modificar categoria
 
      <div class="form-group">
 
-          {!!Form::open(array('action' => 'PreguntasController@store')) !!}
+          {!!Form::open(array('action' => 'PreguntasController@store','id'=>'NuevaPregunta','onsubmit'=>'return validarN()')) !!}
            <!--- 
          |  Label-Cont: Nombre:
          |nameText: NombreTest
@@ -75,7 +164,7 @@ modificar categoria
          |id: NombreTest
           -->
          {!! Form::label('name','Contenido de la pregunta:')!!}
-         {!! Form::text('Contenido',null,['class'=>'Contenido','id'=>'Contenido'])!!}   
+         {!! Form::textarea('Contenido',null,['class'=>'Contenido','id'=>'Contenido'])!!}   
               </br>
          <!---
           |  Label-Cont: Descripcion:
@@ -101,7 +190,7 @@ modificar categoria
 
      <div class="form-group">
 
-          {!!Form::open(array('action' => 'CategoriasController@edit')) !!}
+          {!!Form::open(array('action' => 'CategoriasController@edit','id'=>'EditarCategoria','onsubmit'=>'return validarE()')) !!}
            <!--- 
          |  Label-Cont: Nombre:
          |nameText: NombreTest
@@ -109,7 +198,7 @@ modificar categoria
          |id: NombreTest
           -->
          {!! Form::label('name','Nombre:')!!}
-         {!! Form::text('NombreCategoria',$Categoria->NombreCategoria,['class'=>'NombreTest','id'=>'NombreTest'])!!}   
+         {!! Form::text('NombreCategoria',$Categoria->NombreCategoria,['class'=>'NombreCategoria','id'=>'NombreCategoria'])!!}   
               </br>
          <!---
           |  Label-Cont: Descripcion:
@@ -123,7 +212,7 @@ modificar categoria
           </br>
         
         
-          {!!Form::submit('guardar')!!} 
+          {!!Form::submit('guardar',['class'=>'Guardar','id'=>'Guardar'])!!} 
 
           {!! Form::close() !!}
     </div>

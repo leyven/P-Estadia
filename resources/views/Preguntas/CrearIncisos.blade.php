@@ -2,12 +2,51 @@
 @section('embded-script')
 <script type="text/javascript">
 
+    /*
+    |--------------------------------------------------------------------------
+    | funciones
+    |--------------------------------------------------------------------------
+    |
+    */
 function hideForms() {
-    $("#formnuevaPregunta").hide();
+  $("#formnuevaPregunta").hide(); 
   $("#formEditarPregunta").hide();              // The function returns the product of p1 and p2
+}
+function validar(){
+  return  $('#TestIncisos').jqxValidator('validate');          
 }
 
 $(document).ready(function(){
+      /*
+    |--------------------------------------------------------------------------
+    | Botones
+    |--------------------------------------------------------------------------
+    |
+    */
+    $('.AgregarContenido').jqxTextArea({
+    placeHolder: "Descripcion del test",
+    height: 50,
+    width: 200,
+    minLength: 1,
+    theme: 'energyblue'
+});
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validacion con jqwidgets
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Acciones del formulario
+    |--------------------------------------------------------------------------
+    |
+    */
+
+
 hideForms();
   $("#nuevaPregunta").click(function(){
 $("#formEditarCategoria").hide(); 
@@ -69,7 +108,7 @@ bara de navegacion
 
      <div class="form-group">
 
-          {!!Form::open(array('action' => 'PreguntasController@edit')) !!}
+          {!!Form::open(array('action' => 'PreguntasController@edit','id' => 'TestIncisos','onsubmit'=>'return validar()')) !!}
            <!--- 
          |  Label-Cont: Nombre:
          |nameText: NombreTest
@@ -113,7 +152,7 @@ bara de navegacion
   {!!Form::open(array('action' => 'IncisosController@update')) !!}
          @foreach ($Incisos as $data)
           {!! Form::label('name[]','Contenido del inciso:')!!}
-         {!! Form::text('Contenido[]',$data->Contenido,['class'=>'AgregarContenido','id'=>'AgregarContenido'])!!}
+         {!! Form::textarea('Contenido[]',$data->Contenido,['class'=>'AgregarContenido','id'=>'AgregarContenido'])!!}
          <br>
          {!! Form::hidden('idInciso[]',$data->idInciso)!!}
          {!! Form::label('name','Valor del inciso:')!!}

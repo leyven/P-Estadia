@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('inicio');
 });
 
+Route::get('user', function () {
+    return "sunovabitch";
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
